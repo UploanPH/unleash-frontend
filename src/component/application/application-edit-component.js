@@ -98,25 +98,25 @@ class ClientApplications extends PureComponent {
                                                 <Link to={`/features/create?name=${name}`}>{name}</Link>
                                             </ListItemContent>
                                         ) : (
-                                            <ListItemContent icon={'report'} subtitle={'Missing'}>
-                                                {name}
-                                            </ListItemContent>
-                                        )}
+                                                <ListItemContent icon={'report'} subtitle={'Missing'}>
+                                                    {name}
+                                                </ListItemContent>
+                                            )}
                                     </ListItem>
                                 ) : (
-                                    <ListItem twoLine key={i}>
-                                        <ListItemContent
-                                            icon={
-                                                <span>
-                                                    <Switch disabled checked={!!enabled} />
-                                                </span>
-                                            }
-                                            subtitle={shorten(description, 60)}
-                                        >
-                                            <Link to={`/features/view/${name}`}>{shorten(name, 50)}</Link>
-                                        </ListItemContent>
-                                    </ListItem>
-                                )
+                                        <ListItem twoLine key={i}>
+                                            <ListItemContent
+                                                icon={
+                                                    <span>
+                                                        <Switch disabled checked={!!enabled} />
+                                                    </span>
+                                                }
+                                                subtitle={shorten(description, 60)}
+                                            >
+                                                <Link to={`/features/view/${name}`}>{shorten(name, 50)}</Link>
+                                            </ListItemContent>
+                                        </ListItem>
+                                    )
                             )}
                         </List>
                     </Cell>
@@ -132,18 +132,18 @@ class ClientApplications extends PureComponent {
                                                 <Link to={`/strategies/create?name=${name}`}>{name}</Link>
                                             </ListItemContent>
                                         ) : (
-                                            <ListItemContent icon={'report'} subtitle={'Missing'}>
-                                                {name}
-                                            </ListItemContent>
-                                        )}
+                                                <ListItemContent icon={'report'} subtitle={'Missing'}>
+                                                    {name}
+                                                </ListItemContent>
+                                            )}
                                     </ListItem>
                                 ) : (
-                                    <ListItem twoLine key={`${name}-${i}`}>
-                                        <ListItemContent icon={'extension'} subtitle={shorten(description, 60)}>
-                                            <Link to={`/strategies/view/${name}`}>{shorten(name, 50)}</Link>
-                                        </ListItemContent>
-                                    </ListItem>
-                                )
+                                        <ListItem twoLine key={`${name}-${i}`}>
+                                            <ListItemContent icon={'extension'} subtitle={shorten(description, 60)}>
+                                                <Link to={`/strategies/view/${name}`}>{shorten(name, 50)}</Link>
+                                            </ListItemContent>
+                                        </ListItem>
+                                    )
                             )}
                         </List>
                     </Cell>
@@ -170,38 +170,38 @@ class ClientApplications extends PureComponent {
                     </Cell>
                 </Grid>
             ) : (
-                <Grid>
-                    <Cell col={12}>
-                        <h5>Edit app meta data</h5>
-                    </Cell>
-                    <Cell col={6} tablet={12}>
-                        <StatefulTextfield
-                            value={url}
-                            label="URL"
-                            onBlur={e => storeApplicationMetaData(appName, 'url', e.target.value)}
-                        />
-                        <br />
-                        <StatefulTextfield
-                            value={description}
-                            label="Description"
-                            rows={5}
-                            onBlur={e => storeApplicationMetaData(appName, 'description', e.target.value)}
-                        />
-                    </Cell>
-                    <Cell col={6} tablet={12}>
-                        <StatefulTextfield
-                            value={icon}
-                            label="Select icon"
-                            onBlur={e => storeApplicationMetaData(appName, 'icon', e.target.value)}
-                        />
-                        <StatefulTextfield
-                            value={color}
-                            label="Select color"
-                            onBlur={e => storeApplicationMetaData(appName, 'color', e.target.value)}
-                        />
-                    </Cell>
-                </Grid>
-            );
+                    <Grid>
+                        <Cell col={12}>
+                            <h5>Edit app meta data</h5>
+                        </Cell>
+                        <Cell col={6} tablet={12}>
+                            <StatefulTextfield
+                                value={url}
+                                label="URL"
+                                onBlur={e => storeApplicationMetaData(appName, 'url', e.target.value)}
+                            />
+                            <br />
+                            <StatefulTextfield
+                                value={description}
+                                label="Description"
+                                rows={5}
+                                onBlur={e => storeApplicationMetaData(appName, 'description', e.target.value)}
+                            />
+                        </Cell>
+                        <Cell col={6} tablet={12}>
+                            <StatefulTextfield
+                                value={icon}
+                                label="Select icon"
+                                onBlur={e => storeApplicationMetaData(appName, 'icon', e.target.value)}
+                            />
+                            <StatefulTextfield
+                                value={color}
+                                label="Select color"
+                                onBlur={e => storeApplicationMetaData(appName, 'color', e.target.value)}
+                            />
+                        </Cell>
+                    </Grid>
+                );
 
         return (
             <Card shadow={0} className={commonStyles.fullwidth}>
@@ -224,11 +224,10 @@ class ClientApplications extends PureComponent {
                         className="mdl-color--grey-100"
                     >
                         <Tab>Details</Tab>
-                        <Tab>Edit</Tab>
                     </Tabs>
                 ) : (
-                    ''
-                )}
+                        ''
+                    )}
 
                 {content}
             </Card>
