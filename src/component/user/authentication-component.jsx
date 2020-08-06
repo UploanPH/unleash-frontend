@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText } from 'react-mdl';
+import { Card, CardTitle, CardText, Spinner } from 'react-mdl';
 import Modal from 'react-modal';
 import AuthenticationSimpleComponent from './authentication-simple-component';
 import AuthenticationCustomComponent from './authentication-custom-component';
@@ -28,7 +28,6 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
         backgroundColor: 'transparent',
         padding: 0,
         overflow: 'none',
@@ -52,6 +51,9 @@ class AuthComponent extends React.Component {
         iframeEventBinder(window, 'message', (e) => {
             if (typeof e.data === 'string' && e.data) {
                 sessionStorage.setItem('oauth', e.data)
+                setTimeout(() => {
+                    this.props.history('/features')
+                }, 3000)
             }
         })
     };
@@ -59,6 +61,14 @@ class AuthComponent extends React.Component {
     render() {
         const authDetails = this.props.user.authDetails;
         if (!authDetails) return null;
+
+        if (authDetails.type === UPLOAN_TYPE) {
+            return (
+                <div style={customStyles.overlay}>
+                    <Spinner style={customStyles.content} />
+                </div>
+            );
+        }
 
 
         let content;
