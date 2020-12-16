@@ -16,5 +16,4 @@ ARG build_version="1.0.2-edge"
 
 EXPOSE 80
 COPY  --from=builder /app/dist /usr/share/nginx/html
-RUN envsubst "UNLEASH_API" < .env > nginx/default.conf
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
