@@ -12,6 +12,8 @@ import Features from '../page/features';
 
 import { FooterMenu } from './menu/footer';
 import { routes } from './menu/routes';
+import { iframeEventBinder, setStellarOauthToken, timeout } from '../data/helper'
+
 
 export default class App extends PureComponent {
     static propTypes = {
@@ -33,7 +35,6 @@ export default class App extends PureComponent {
                                     <Route
                                         exact
                                         path="/"
-                                        render={() => <Redirect to="/features" component={Features} />}
                                     />
                                     {routes.map(route => (
                                         <Route key={route.path} path={route.path} component={route.component} />

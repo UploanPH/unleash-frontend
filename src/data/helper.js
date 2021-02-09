@@ -79,6 +79,16 @@ export const iframeEventBinder = (element, eventName, eventHandler) => {
         element.attachEvent('on' + eventName, eventHandler)
     }
 }
+export const timeout = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+export const setStellarOauthToken = () => {
+    iframeEventBinder(window, 'message', (e) => {
+        if (typeof e.data === 'string' && e.data) {
+            sessionStorage.setItem('oauth', e.data)
+        }
+    })
+}
 
 export const retrieveOAuthDetails = () => {
     return sessionStorage.getItem('oauth') ? JSON.parse(sessionStorage.getItem('oauth')) : {};
@@ -87,6 +97,7 @@ export const retrieveOAuthDetails = () => {
 export const retrieveTokenBearer = async () => {
     const oauthDetails = retrieveOAuthDetails()
     if (Object.keys(oauthDetails).length === 0) {
+        console.log("no aoth")
         return '';
     }
 

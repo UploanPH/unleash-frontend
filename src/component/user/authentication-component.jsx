@@ -6,7 +6,10 @@ import AuthenticationSimpleComponent from './authentication-simple-component';
 import AuthenticationCustomComponent from './authentication-custom-component';
 import AuthenticationPasswordComponent from './authentication-password-component';
 import AuthenticationUploanComponent from './authentication-uploan-component';
-import { iframeEventBinder } from '../../data/helper'
+import { retrieveOAuthDetails, setStellarOauthToken, timeout } from '../../data/helper'
+import { AUTH_REQUIRED } from '../../store/util';
+import { Redirect } from 'react-router-dom';
+import Features from '../../page/features';
 
 const SIMPLE_TYPE = 'unsecure';
 const PASSWORD_TYPE = 'password';
@@ -45,84 +48,38 @@ class AuthComponent extends React.Component {
         history: PropTypes.object.isRequired,
     };
 
-    // this makes it possible for stellar service to
-    // push token to unleash front-end.
-    componentDidMount() {
-        iframeEventBinder(window, 'message', (e) => {
-            if (typeof e.data === 'string' && e.data) {
-                sessionStorage.setItem('oauth', e.data)
-                setTimeout(() => {
-                    this.props.history('/features')
-                }, 3000)
-            }
+    state = {
+        isStellarAuthLoaded: false
+    }
+
+    async componentDidMount() {
+        console.log("wait 5 seconds")
+        setStellarOauthToken()
+
+        await timeout(5000)
+        this.setState({
+            isStellarAuthLoaded: true
         })
-    };
+        this.props.history.push('/features')
+        console.log("done waiting 5 seconds")
+    }
 
     render() {
-        const authDetails = this.props.user.authDetails;
-        if (!authDetails) return null;
-
-        if (authDetails.type === UPLOAN_TYPE) {
-            return (
-                <div style={customStyles.overlay}>
-                    <Spinner style={customStyles.content} />
-                </div>
-            );
-        }
-
-
-        let content;
-        if (authDetails.type === PASSWORD_TYPE) {
-            content = (
-                <AuthenticationPasswordComponent
-                    passwordLogin={this.props.passwordLogin}
-                    authDetails={authDetails}
-                    fetchFeatureToggles={this.props.fetchFeatureToggles}
-                    fetchUIConfig={this.props.fetchUIConfig}
-                    history={this.props.history}
-                />
-            );
-        } else if (authDetails.type === SIMPLE_TYPE) {
-            content = (
-                <AuthenticationSimpleComponent
-                    unsecureLogin={this.props.unsecureLogin}
-                    authDetails={authDetails}
-                    fetchFeatureToggles={this.props.fetchFeatureToggles}
-                    history={this.props.history}
-                />
-            );
-        } else if (authDetails.type === UPLOAN_TYPE) {
-            content = (
-                <AuthenticationUploanComponent
-                    uploanLogin={this.props.uploanLogin}
-                    authDetails={authDetails}
-                    fetchFeatureToggles={this.props.fetchFeatureToggles}
-                    fetchUIConfig={this.props.fetchUIConfig}
-                    history={this.props.history}
-                />
-            );
-        } else {
-            content = <AuthenticationCustomComponent authDetails={authDetails} />;
-        }
+        let { isStellarAuthLoaded } = this.state
         return (
-            <div>
-                <Modal isOpen={this.props.user.showDialog} contentLabel="test" style={customStyles}>
-                    <Card shadow={0}>
-                        <CardTitle
-                            expand
-                            style={{
-                                color: '#fff',
-                                background: 'rgb(96, 125, 139)',
-                            }}
-                        >
-                            Action Required
-                        </CardTitle>
-                        <CardText>{content}</CardText>
-                    </Card>
-                </Modal>
+            <div key={isStellarAuthLoaded}>
+                {/* {isStellarAuthLoaded && <Redirect to="/features" component={Features} />} */}
+                {!isStellarAuthLoaded &&
+                    (
+                        <div style={customStyles.overlay}>
+                            <Spinner style={customStyles.content} />
+                        </div>
+                    )
+                }
             </div>
-        );
+        )
     }
-}
+
+};
 
 export default AuthComponent;
