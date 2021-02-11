@@ -97,7 +97,6 @@ export const retrieveOAuthDetails = () => {
 export const retrieveTokenBearer = async () => {
     const oauthDetails = retrieveOAuthDetails()
     if (Object.keys(oauthDetails).length === 0) {
-        console.log("no aoth")
         return '';
     }
 

@@ -12,8 +12,6 @@ import Features from '../page/features';
 
 import { FooterMenu } from './menu/footer';
 import { routes } from './menu/routes';
-import { iframeEventBinder, setStellarOauthToken, timeout } from '../data/helper'
-
 
 export default class App extends PureComponent {
     static propTypes = {

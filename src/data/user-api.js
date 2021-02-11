@@ -12,7 +12,6 @@ function logoutUser() {
 function fetchUser() {
     const oauth = retrieveOAuthDetails();
     const accessToken = oauth.access_token ? oauth.access_token : '';
-    console.log("accessToken", accessToken)
     if (accessToken === '') {
         return Promise.reject(throwIfNotSuccess);
     }

@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText, Spinner } from 'react-mdl';
-import Modal from 'react-modal';
-import AuthenticationSimpleComponent from './authentication-simple-component';
-import AuthenticationCustomComponent from './authentication-custom-component';
-import AuthenticationPasswordComponent from './authentication-password-component';
-import AuthenticationUploanComponent from './authentication-uploan-component';
-import { retrieveOAuthDetails, setStellarOauthToken, timeout } from '../../data/helper'
-import { AUTH_REQUIRED } from '../../store/util';
+import { Spinner } from 'react-mdl';
+import { setStellarOauthToken, timeout } from '../../data/helper'
 import { Redirect } from 'react-router-dom';
 import Features from '../../page/features';
-import { fetchUser } from '../../store/user/actions';
 const SIMPLE_TYPE = 'unsecure';
 const PASSWORD_TYPE = 'password';
 const UPLOAN_TYPE = 'uploan';
