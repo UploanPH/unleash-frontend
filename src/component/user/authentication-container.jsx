@@ -3,6 +3,8 @@ import AuthenticationComponent from './authentication-component';
 import { unsecureLogin, passwordLogin, uploanLogin } from '../../store/user/actions';
 import { fetchFeatureToggles } from '../../store/feature-actions';
 import { fetchUIConfig } from '../../store/ui-config/actions';
+import { fetchUser } from '../../store/user/actions';
+
 
 const mapDispatchToProps = {
     unsecureLogin,
@@ -10,6 +12,7 @@ const mapDispatchToProps = {
     uploanLogin,
     fetchFeatureToggles,
     fetchUIConfig,
+    fetchUser
 };
 
 const mapStateToProps = state => ({

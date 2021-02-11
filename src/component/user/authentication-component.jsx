@@ -10,7 +10,7 @@ import { retrieveOAuthDetails, setStellarOauthToken, timeout } from '../../data/
 import { AUTH_REQUIRED } from '../../store/util';
 import { Redirect } from 'react-router-dom';
 import Features from '../../page/features';
-
+import { fetchUser } from '../../store/user/actions';
 const SIMPLE_TYPE = 'unsecure';
 const PASSWORD_TYPE = 'password';
 const UPLOAN_TYPE = 'uploan';
@@ -46,6 +46,7 @@ class AuthComponent extends React.Component {
         fetchFeatureToggles: PropTypes.func.isRequired,
         fetchUIConfig: PropTypes.func.isRequired,
         history: PropTypes.object.isRequired,
+        fetchUser: PropTypes.func.isRequired,
     };
 
     state = {
@@ -53,22 +54,21 @@ class AuthComponent extends React.Component {
     }
 
     async componentDidMount() {
-        console.log("wait 5 seconds")
         setStellarOauthToken()
+        await timeout(3000)
 
-        await timeout(5000)
+        this.props.fetchUser();
+
         this.setState({
             isStellarAuthLoaded: true
         })
-        this.props.history.push('/features')
-        console.log("done waiting 5 seconds")
     }
 
     render() {
         let { isStellarAuthLoaded } = this.state
         return (
             <div key={isStellarAuthLoaded}>
-                {/* {isStellarAuthLoaded && <Redirect to="/features" component={Features} />} */}
+                {isStellarAuthLoaded && <Redirect to="/features" component={Features} />}
                 {!isStellarAuthLoaded &&
                     (
                         <div style={customStyles.overlay}>

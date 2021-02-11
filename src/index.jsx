@@ -15,7 +15,7 @@ import MetricsPoller from './metrics-poller';
 import App from './component/app';
 import ScrollToTop from './component/scroll-to-top';
 import fetchIntercept from 'fetch-intercept';
-import { retrieveTokenBearer } from './data/helper'
+import { retrieveTokenBearer, setStellarOauthToken, retrieveOAuthDetails, timeout } from './data/helper'
 
 let composeEnhancers;
 
@@ -31,6 +31,11 @@ const metricsPoller = new MetricsPoller(unleashStore);
 // fetch interceptor
 const unregister = fetchIntercept.register({
     request: async function (url, config) {
+        const oauthDetails = retrieveOAuthDetails()
+        if (Object.keys(oauthDetails).length === 0) {
+            setStellarOauthToken()
+            await timeout(3000)
+        }
         if (url === process.env.UPLOAN_AUTH_URL) {
             return [url, config];
         }

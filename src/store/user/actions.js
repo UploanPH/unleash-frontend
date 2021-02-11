@@ -22,10 +22,10 @@ function handleError(error) {
 }
 
 export function fetchUser() {
-    debug('Start fetching user');
+    console.log('Start fetching user');
     return dispatch => {
         dispatch({ type: START_FETCH_USER });
-
+        
         return api
             .fetchUser()
             .then(json => dispatch(updateUser(uploanUserToUnleashUser(json))))
