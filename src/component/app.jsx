@@ -25,7 +25,7 @@ class App extends PureComponent {
             <div className={styles.container}>
                 <MainLayout {...this.props}>
                     <Switch>
-                        <Route exact path="/" render={() => <Redirect to="/features" component={Features} />} />
+                        <Route exact path="/" />
                         {routes.map(route => (
                             <Route key={route.path} path={route.path} component={route.component} />
                         ))}
