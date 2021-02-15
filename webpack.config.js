@@ -26,7 +26,7 @@ const plugins = [
 ];
 
 if (devMode) {
-    entry.push('webpack-dev-server/client?http://localhost:3002');
+    entry.push(`webpack-dev-server/client?http://localhost:${process.env.PORT}`);
     entry.push('webpack/hot/only-dev-server');
     plugins.push(new webpack.HotModuleReplacementPlugin());
 }
