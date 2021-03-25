@@ -1,6 +1,6 @@
 // docs: http://webpack.github.io/docs/configuration.html
 'use strict';
-
+require('dotenv').config()
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -26,7 +26,7 @@ const plugins = [
 ];
 
 if (devMode) {
-    entry.push('webpack-dev-server/client?http://localhost:3000');
+    entry.push(`webpack-dev-server/client?http://localhost:${process.env.PORT}`);
     entry.push('webpack/hot/only-dev-server');
     plugins.push(new webpack.HotModuleReplacementPlugin());
 }
